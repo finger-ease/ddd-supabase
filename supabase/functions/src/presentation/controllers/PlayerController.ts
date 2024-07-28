@@ -13,12 +13,14 @@ import { PlayerFindService } from "../../application/services/PlayerFindService.
 import { UniqueIdentifier } from "../../domain/value-objects/UniqueIdentifier.ts";
 import { PlayerUpdateService } from "../../application/services/PlayerUpdateService.ts";
 import { PutPlayerRequest } from "../requests/PutPlayerRequest.ts";
+import { PlayerDeleteService } from "../../application/services/PlayerDeleteService.ts";
 
 export class PlayerController {
   constructor(
     private readonly _playerCreateService: PlayerCreateService,
     private readonly _playerFindService: PlayerFindService,
     private readonly _playerUpdateService: PlayerUpdateService,
+    private readonly _playerDeleteService: PlayerDeleteService,
   ) {}
 
   public postPlayer = async (
@@ -75,5 +77,19 @@ export class PlayerController {
 
     context.response.status = Status.OK;
     context.response.body = data;
+  };
+
+  public deletePlayer = async (
+    context: RouterContext<string>,
+  ) => {
+    const { id } = context.params;
+
+    if (!UniqueIdentifier.isValid(id)) {
+      throw new httpErrors.BadRequest("Invalid id");
+    }
+
+    await this._playerDeleteService.execute(new UniqueIdentifier(id));
+
+    context.response.status = Status.NoContent;
   };
 }

@@ -52,4 +52,19 @@ export class PlayerRepository implements IPlayerRepository {
       console.error(error);
     }
   };
+
+  public delete = async (id: UniqueIdentifier): Promise<void> => {
+    try {
+      const { error } = await supabase
+        .from("players")
+        .delete()
+        .eq("id", id.value);
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }

@@ -4,4 +4,5 @@ import { UniqueIdentifier } from "../../../../domain/value-objects/UniqueIdentif
 export interface IPlayerRepository {
   find(id: UniqueIdentifier): Promise<Player | null>;
   store(player: Player): Promise<void>;
+  delete(id: UniqueIdentifier): Promise<void>;
 }

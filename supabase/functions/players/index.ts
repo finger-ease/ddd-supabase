@@ -10,6 +10,7 @@ import { PlayerRepository } from "../src/infrastructure/persistence/repositories
 import { PlayerController } from "../src/presentation/controllers/PlayerController.ts";
 import { PlayerFindService } from "../src/application/services/PlayerFindService.ts";
 import { PlayerUpdateService } from "../src/application/services/PlayerUpdateService.ts";
+import { PlayerDeleteService } from "../src/application/services/PlayerDeleteService.ts";
 
 const app = new Application();
 const router = new Router();
@@ -17,16 +18,19 @@ const router = new Router();
 const playerCreateService = new PlayerCreateService(new PlayerRepository());
 const playerFindService = new PlayerFindService(new PlayerRepository());
 const playerUpdateService = new PlayerUpdateService(new PlayerRepository());
+const playerDeleteService = new PlayerDeleteService(new PlayerRepository());
 const playerController = new PlayerController(
   playerCreateService,
   playerFindService,
   playerUpdateService,
+  playerDeleteService,
 );
 
 router
   .post("/players", playerController.postPlayer)
   .get("/players/:id", playerController.getPlayer)
-  .put("/players/:id", playerController.putPlayer);
+  .put("/players/:id", playerController.putPlayer)
+  .delete("/players/:id", playerController.deletePlayer);
 
 app.use(async (context, next) => {
   try {
