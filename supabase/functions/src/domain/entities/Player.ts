@@ -24,4 +24,17 @@ export class Player {
       defensePoint,
     );
   };
+
+  public update = (
+    hitPoint: HitPoint | null,
+    attackPoint: AttackPoint | null,
+    defensePoint: DefensePoint | null,
+  ): Player => {
+    return new Player(
+      this.id,
+      hitPoint ?? this.hitPoint,
+      attackPoint ?? this.attackPoint,
+      defensePoint ?? this.defensePoint,
+    );
+  };
 }

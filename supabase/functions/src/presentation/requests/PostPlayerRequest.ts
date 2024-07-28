@@ -1,13 +1,13 @@
 import { httpErrors } from "https://deno.land/x/oak/mod.ts";
 
-export class CreatePlayerRequest {
+export class PostPlayerRequest {
   constructor(
     public readonly hitPoint: number,
     public readonly attackPoint: number,
     public readonly defensePoint: number,
   ) {}
 
-  public static validate(request: any): CreatePlayerRequest {
+  public static validate(request: any): PostPlayerRequest {
     const { hitPoint, attackPoint, defensePoint } = request;
 
     if (hitPoint == null || attackPoint == null || defensePoint == null) {
@@ -22,6 +22,6 @@ export class CreatePlayerRequest {
       throw new httpErrors.BadRequest("Invalid parameters");
     }
 
-    return new CreatePlayerRequest(hitPoint, attackPoint, defensePoint);
+    return new PostPlayerRequest(hitPoint, attackPoint, defensePoint);
   }
 }

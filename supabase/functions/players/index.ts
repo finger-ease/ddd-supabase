@@ -9,20 +9,24 @@ import { PlayerCreateService } from "../src/application/services/PlayerCreateSer
 import { PlayerRepository } from "../src/infrastructure/persistence/repositories/playerRepository/PlayerRepository.ts";
 import { PlayerController } from "../src/presentation/controllers/PlayerController.ts";
 import { PlayerFindService } from "../src/application/services/PlayerFindService.ts";
+import { PlayerUpdateService } from "../src/application/services/PlayerUpdateService.ts";
 
 const app = new Application();
 const router = new Router();
 
 const playerCreateService = new PlayerCreateService(new PlayerRepository());
 const playerFindService = new PlayerFindService(new PlayerRepository());
+const playerUpdateService = new PlayerUpdateService(new PlayerRepository());
 const playerController = new PlayerController(
   playerCreateService,
   playerFindService,
+  playerUpdateService,
 );
 
 router
-  .post("/players", playerController.createPlayer)
-  .get("/players/:id", playerController.findPlayer);
+  .post("/players", playerController.postPlayer)
+  .get("/players/:id", playerController.getPlayer)
+  .put("/players/:id", playerController.putPlayer);
 
 app.use(async (context, next) => {
   try {
