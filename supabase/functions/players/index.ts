@@ -8,20 +8,31 @@ import {
 import { PlayerCreateService } from "../src/application/services/PlayerCreateService.ts";
 import { PlayerRepository } from "../src/infrastructure/persistence/repositories/playerRepository/PlayerRepository.ts";
 import { PlayerController } from "../src/presentation/controllers/PlayerController.ts";
+import { PlayerFindService } from "../src/application/services/PlayerFindService.ts";
 
 const app = new Application();
 const router = new Router();
 
 const playerCreateService = new PlayerCreateService(new PlayerRepository());
-const playerController = new PlayerController(playerCreateService);
+const playerFindService = new PlayerFindService(new PlayerRepository());
+const playerController = new PlayerController(
+  playerCreateService,
+  playerFindService,
+);
 
 router
-  .post("/players", playerController.createPlayer);
+  .post("/players", playerController.createPlayer)
+  .get("/players/:id", playerController.findPlayer);
 
 app.use(async (context, next) => {
   try {
     await next();
   } catch (error) {
+    if (error instanceof httpErrors.NotFound) {
+      context.response.status = Status.NotFound;
+      context.response.body = { message: error.message };
+      return;
+    }
     if (error instanceof httpErrors.BadRequest) {
       context.response.status = Status.BadRequest;
       context.response.body = { message: error.message };
