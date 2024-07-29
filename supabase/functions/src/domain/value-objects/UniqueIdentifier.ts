@@ -10,7 +10,7 @@ export class UniqueIdentifier {
   };
 
   public static isValid = (value: string): boolean => {
-    const uuidRegex =
+    const uuidRegex: RegExp =
       /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     return uuidRegex.test(value);
   };

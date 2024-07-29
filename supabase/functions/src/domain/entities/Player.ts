@@ -26,9 +26,9 @@ export class Player {
   };
 
   public update = (
-    hitPoint: HitPoint | null,
-    attackPoint: AttackPoint | null,
-    defensePoint: DefensePoint | null,
+    hitPoint: HitPoint | null = null,
+    attackPoint: AttackPoint | null = null,
+    defensePoint: DefensePoint | null = null,
   ): Player => {
     return new Player(
       this.id,
