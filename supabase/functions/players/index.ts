@@ -1,9 +1,4 @@
-import {
-  Application,
-  httpErrors,
-  Router,
-  Status,
-} from "https://deno.land/x/oak/mod.ts";
+import { Application, httpErrors, Router, Status } from "@oak/oak";
 
 import { PlayerCreateService } from "../src/application/services/PlayerCreateService.ts";
 import { PlayerRepository } from "../src/infrastructure/persistence/repositories/playerRepository/PlayerRepository.ts";

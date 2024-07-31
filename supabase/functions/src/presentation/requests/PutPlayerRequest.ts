@@ -1,4 +1,4 @@
-import { httpErrors } from "https://deno.land/x/oak/mod.ts";
+import { httpErrors } from "@oak/oak";
 
 export class PutPlayerRequest {
   constructor(

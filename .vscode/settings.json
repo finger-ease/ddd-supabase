@@ -4,6 +4,7 @@
   ],
   "deno.lint": true,
   "deno.unstable": true,
+  "deno.config": "supabase/deno.json",
   "[typescript]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
   }

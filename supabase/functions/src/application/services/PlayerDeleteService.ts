@@ -1,4 +1,4 @@
-import { httpErrors } from "https://deno.land/x/oak/mod.ts";
+import { httpErrors } from "@oak/oak";
 
 import { IPlayerRepository } from "../../infrastructure/persistence/repositories/playerRepository/IPlayerRepository.ts";
 import { UniqueIdentifier } from "../../domain/value-objects/UniqueIdentifier.ts";
